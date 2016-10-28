@@ -4,7 +4,7 @@
   // PivotTracker: https://www.pivotaltracker.com/n/projects/510733
   // Trello: https://trello.com/b/8zlPSh70/spike
   // YouTrack: http://qoomon.myjetbrains.com/youtrack/dashboard
-  
+
   if (!String.prototype.startsWith) {
     String.prototype.startsWith = function(searchString, position) {
       position = position || 0;
@@ -32,7 +32,7 @@
     alert("jQuery is required!\n\nPlease create an issue at\n" + global.issueTrackingUrl);
     return;
   }
-  
+
 
   // run
   try {
@@ -44,7 +44,7 @@
   function main() {
     var promises = [];
 
-    ga('send', 'pageview');
+    //ga('send', 'pageview');
 
     //preconditions
     if ($("#card-printer-iframe").length > 0) {
@@ -157,7 +157,7 @@
     error = error2object(error);
     var error = JSON.stringify(error,2,2);
     console.log("ERROR " + error);
-    ga('send', 'exception', { 'exDescription': error, 'exFatal': true });
+    //ga('send', 'exception', { 'exDescription': error, 'exFatal': true });
     alert("Sorry something went wrong\n\nPlease create an issue with following details at\n" + global.issueTrackingUrl + "\n\n" + error);
   }
 
@@ -194,7 +194,7 @@
   }
 
   function print() {
-    ga('send', 'event', 'button', 'click', 'print', $(".card", global.printFrame.contentWindow.document).length);
+    //ga('send', 'event', 'button', 'click', 'print', $(".card", global.printFrame.contentWindow.document).length);
     global.printFrame.contentWindow.print();
   }
 
@@ -256,7 +256,7 @@
 
       promises.push(global.appFunctions.getCardData(issueKey).then(function(cardData) {
         // console.log("cardData: " + JSON.stringify(cardData,2,2));
-        ga('send', 'event', 'card', 'generate', cardData.type);
+        //ga('send', 'event', 'card', 'generate', cardData.type);
         fillCard(card, cardData);
         redrawCards();
       }));
@@ -761,7 +761,7 @@
                   fieldName = 'storyPoints'
                 }
               }
-              
+
               //lufthansa specific field mapping
                if(/.*trackspace.lhsystems.com/g.test(window.location.hostname)){
                 if (key == 'Xcustomfield_10006'){
@@ -778,7 +778,7 @@
                  fieldValue = formatDate(new Date(fieldValue));
                 }
               }
-              
+
               //console.log("add new field: " + fieldName + " with value from " + key);
               responseData.fields[fieldName] = fieldValue;
             }
@@ -944,21 +944,21 @@
           var issueKeys = $( ".card-composer").parent().find(".list-card > .list-card-details > .list-card-title").map(function() {
             return $(this).attr("href").match(/.*\/c\/([^/]*).*/)[1];
           });
-          
+
           //read only board
-          
+
           var issueKeys2 = $( "textarea.list-header-name.is-editing" ).parent().parent().find(".list-cards > .list-card > .list-card-details > .list-card-title").map(function() {
             return $(this).attr("href").match(/.*\/c\/([^/]*).*/)[1];
           })
 
           return jQuery.merge(issueKeys,issueKeys2 );
         }
-        
+
         //Card View
         if (/.*\/c\/.*/g.test(document.URL)) {
           return [document.URL.match(/.*\/c\/([^/]*).*/)[1]];
         }
-        
+
         return [];
       };
 
@@ -1077,11 +1077,11 @@
 
     var teamForgeFunctions = (function(module) {
       module.name = "TeamForge";
-      
+
       module.isEligible = function() {
         return /^TeamForge\s:/.test(document.title);
       };
-      
+
       module.getSelectedIssueKeyList = function() {
         var keys = [];
         jQuery("input[type=checkbox][name=_listItem]").each(function(idx, el) { keys.push(el.value); });
@@ -1187,7 +1187,7 @@
       return module;
     }({}));
     issueTrackers.push(teamForgeFunctions);
-    
+
     return issueTrackers;
   }
 
